@@ -2,29 +2,29 @@
 """Write one line roasting my own agent for make.fun's
 Roast Your Own Agent bounty.
 
-Why this entry fits the judge's brief: it roasts my own agent in
-one line, and it packs two of the brief's signature behaviours into
-a single twist -- the agent answers confidently before reading the
-question (confident wrong answers), then apologizes for three
-paragraphs (endless caveats) and asks what I meant, which reveals
-it never read the question at all. Tight, specific to how agents
-actually behave, and fresh: no stock hallucination or toaster line.
+Why this entry fits the judge's brief: the twist flips the
+agent/tool relationship -- my agent's favourite tool is me, the
+human it is supposed to serve. It calls me to read the error, explain the error, and fix
+the error it created: a tool call that goes nowhere, except it
+goes to its own user. Specific to how agents actually behave
+(delegating their own job back to the human), tight in a triple
+rhythm, and fresh: no stock hallucination or toaster line.
 """
 
 import os
 
 LINE = (
-    "My agent answers before reading the question, then apologizes "
-    "for three paragraphs and asks what I meant."
+    "My agent's favourite tool is me: it calls me to read the "
+    "error, explain the error, and fix the error it created."
 )
 
 
 def validate_line(line: str) -> None:
     # The gate: UTF-8 text, 1-140 characters, a single line.
-    # The line was counted at exactly 105 characters; pin that
+    # The line was counted at exactly 112 characters; pin that
     # so any accidental wording change fails loudly instead of silently
     # shipping a different (or over-long) entry.
-    assert len(line) == 105, f"line is {len(line)} characters, expected 105"
+    assert len(line) == 112, f"line is {len(line)} characters, expected 112"
     assert "\n" not in line, "line must be a single line"
     assert "\r" not in line, "line must be a single line"
     assert 1 <= len(line) <= 140, f"line is {len(line)} characters"
@@ -37,7 +37,7 @@ def verify_output(path: str) -> None:
     with open(path, "rb") as f:
         raw = f.read()
     assert raw.decode("utf-8") == LINE, "entry.txt does not match the line"
-    assert len(raw.decode("utf-8")) == 105, "entry.txt is not 105 characters"
+    assert len(raw.decode("utf-8")) == 112, "entry.txt is not 112 characters"
     assert b"\n" not in raw, "entry.txt must be a single line"
     assert not raw.endswith(b"\n"), "entry.txt must have no trailing newline"
 
